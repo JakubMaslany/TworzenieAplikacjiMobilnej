@@ -1,9 +1,32 @@
 /* src/components/Footer.css */
 
-.footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px;
+/* Styl dla stopki */
+footer {
+    background-color: #333; /* Ciemniejsze tło */
+    color: #fff; /* Kolor tekstu na biały */
+    text-align: center; /* Wyrównanie tekstu do środka */
+    padding: 15px 0; /* Wewnętrzne odstępy (padding) na górze i na dole */
+    font-size: 14px; /* Rozmiar czcionki */
+    width: 100%; /* Szerokość stopki 100% */
+    position: relative; /* Umożliwia pozycjonowanie, jeśli potrzebne */
+    bottom: 0; /* Przykleja stopkę na dole, jeżeli jest to konieczne */
+  }
+  
+  /* Stylizowanie linków w stopce */
+  footer a {
+    color: #fff; /* Kolor linków */
+    text-decoration: none; /* Usuwa podkreślenie */
+  }
+  
+  footer a:hover {
+    text-decoration: underline; /* Podkreślenie linków na hover */
+  }
+  
+  /* Dodanie marginesów do stopki w mniejszych ekranach */
+  @media (max-width: 768px) {
+    footer {
+      font-size: 12px; /* Mniejszy rozmiar czcionki na mniejszych ekranach */
+      padding: 10px 0; /* Mniejsze marginesy w stopce na małych ekranach */
+    }
   }
   
