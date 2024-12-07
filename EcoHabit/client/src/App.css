@@ -1,10 +1,18 @@
 /* src/App.css */
 
-/* Globalne style */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
+/* Ustawienie body jako kontenera flex */
+html, body {
+    height: 100%;
+    margin: 0;
   }
   
-  /* Możesz dodać tu więcej globalnych stylów dla całej aplikacji */
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Zapewnia, że strona zajmuje co najmniej 100% wysokości ekranu */
+  }
+  
+  .main-content {
+    flex: 1; /* To sprawia, że główna zawartość wypełnia przestrzeń */
+  }
   
