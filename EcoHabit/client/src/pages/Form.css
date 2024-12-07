@@ -1,57 +1,35 @@
-/* src/pages/Form.css */
-
 .form-container {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-form div {
-  margin-bottom: 15px;
-}
-
-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-input {
+form input {
+  width: 100%;
   padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
+  margin: 10px 0;
   border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
-button {
-  padding: 12px;
+form button {
+  width: 100%;
+  padding: 10px;
   background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
 }
 
-button:hover {
+form button:hover {
   background-color: #45a049;
 }
 
-.error {
+p {
   color: red;
-  margin-bottom: 10px;
-  text-align: center;
+  font-size: 14px;
 }
