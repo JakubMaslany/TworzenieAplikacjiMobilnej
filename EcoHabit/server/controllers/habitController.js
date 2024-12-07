@@ -1,62 +1,48 @@
-const Habit = require('../models/Habit');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-const getHabits = async (req, res) => {
-  try {
-    const habits = await Habit.find({ userId: req.userId });
-    res.json(habits);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch habits' });
-  }
-};
+// Rejestracja użytkownika
+exports.register = async (req, res) => {
+  const { email, password } = req.body;
 
-const getHabitById = async (req, res) => {
   try {
-    const habit = await Habit.findById(req.params.id);
-    if (!habit || habit.userId.toString() !== req.userId) {
-      return res.status(404).json({ error: 'Habit not found' });
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Użytkownik już istnieje' });
     }
-    res.json(habit);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch habit' });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = new User({ email, password: hashedPassword });
+    await user.save();
+
+    res.status(201).json({ message: 'Rejestracja zakończona sukcesem' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Błąd serwera' });
   }
 };
 
-const createHabit = async (req, res) => {
-  try {
-    const { name, description, frequency } = req.body;
-    const newHabit = new Habit({ name, description, frequency, userId: req.userId });
-    await newHabit.save();
-    res.status(201).json(newHabit);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to create habit' });
-  }
-};
+// Logowanie użytkownika
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
 
-const updateHabit = async (req, res) => {
   try {
-    const habit = await Habit.findById(req.params.id);
-    if (!habit || habit.userId.toString() !== req.userId) {
-      return res.status(404).json({ error: 'Habit not found' });
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'Nieprawidłowe dane logowania' });
     }
-    Object.assign(habit, req.body);
-    await habit.save();
-    res.json(habit);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update habit' });
-  }
-};
 
-const deleteHabit = async (req, res) => {
-  try {
-    const habit = await Habit.findById(req.params.id);
-    if (!habit || habit.userId.toString() !== req.userId) {
-      return res.status(404).json({ error: 'Habit not found' });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Nieprawidłowe dane logowania' });
     }
-    await habit.remove();
-    res.json({ message: 'Habit deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to delete habit' });
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Błąd serwera' });
   }
 };
-
-module.exports = { getHabits, getHabitById, createHabit, updateHabit, deleteHabit };

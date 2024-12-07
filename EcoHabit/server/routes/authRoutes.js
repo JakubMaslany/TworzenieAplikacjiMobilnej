@@ -1,15 +1,9 @@
 const express = require('express');
+const { register, login } = require('../controllers/authController');
+
 const router = express.Router();
 
-// Przykładowe trasy logowania i rejestracji
-router.post('/login', (req, res) => {
-    // Kod logowania
-    res.send('Login route');
-});
-
-router.post('/register', (req, res) => {
-    // Kod rejestracji
-    res.send('Register route');
-});
+router.post('/register', register); // Obsługa rejestracji
+router.post('/login', login);       // Obsługa logowania
 
 module.exports = router;

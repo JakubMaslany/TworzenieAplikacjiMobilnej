@@ -1,33 +1,55 @@
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
-const register = async (req, res) => {
+// Rejestracja użytkownika
+exports.register = async (req, res) => {
+  const { email, password } = req.body;
+
   try {
-    const { email, password } = req.body;
+    // Sprawdzenie, czy użytkownik już istnieje
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Użytkownik już istnieje' });
+    }
+
+    // Haszowanie hasła
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ email, password: hashedPassword });
-    await newUser.save();
-    res.status(201).json({ message: 'User registered successfully!' });
-  } catch (error) {
-    res.status(500).json({ error: 'Registration failed' });
+
+    // Tworzenie nowego użytkownika
+    const user = new User({ email, password: hashedPassword });
+    await user.save();
+
+    res.status(201).json({ message: 'Rejestracja zakończona sukcesem' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Błąd serwera' });
   }
 };
 
-const login = async (req, res) => {
+// Logowanie użytkownika
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+
   try {
-    const { email, password } = req.body;
+    // Sprawdzenie, czy użytkownik istnieje
     const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ error: 'User not found' });
+    if (!user) {
+      return res.status(400).json({ message: 'Nieprawidłowe dane logowania' });
+    }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) return res.status(401).json({ error: 'Invalid credentials' });
+    // Sprawdzenie hasła
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Nieprawidłowe dane logowania' });
+    }
 
+    // Tworzenie tokenu JWT
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
     res.json({ token });
-  } catch (error) {
-    res.status(500).json({ error: 'Login failed' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Błąd serwera' });
   }
 };
-
-module.exports = { register, login };
