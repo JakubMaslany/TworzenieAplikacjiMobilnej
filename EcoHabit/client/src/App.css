@@ -8,7 +8,7 @@ html, body {
   .app-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Wypełnia całą wysokość ekranu */
+    min-height: 100vh;
   }
   
   .main-content {
@@ -17,13 +17,18 @@ html, body {
   }
   
   .sidebar {
-    width: 250px; /* Wysokość bocznego paska */
+    position: sticky; /* Zapewnia, że sidebar będzie przyklejony do lewej strony */
+    top: 0;
+    width: 250px;
     background-color: #f4f4f4;
+    z-index: 2; /* Ustawienie wyższego indeksu, aby nie zasłaniało innych elementów */
   }
   
   .content {
     flex: 1;
     padding: 20px;
+    position: relative; /* Zapewnia, że treść nie zniknie pod sidebar’em */
+    z-index: 1; /* Ustawienie mniejszego indeksu, aby była za sidebar’em */
   }
   
   .footer {
@@ -31,6 +36,6 @@ html, body {
     color: white;
     text-align: center;
     padding: 10px;
-    margin-top: auto; /* Zapewnia, że stopka będzie zawsze na dole */
+    margin-top: auto;
   }
   
