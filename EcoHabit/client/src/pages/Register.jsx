@@ -1,26 +1,19 @@
+// src/pages/Register.jsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../api';
+import './Form.css';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await api.post('/auth/register', { email, password });
-      alert('Registration successful!');
-      navigate('/');
-    } catch (err) {
-      alert('Registration failed');
-    }
+    // logika rejestracji
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Register</h1>
+      <h2>Rejestracja</h2>
       <input
         type="email"
         placeholder="Email"
@@ -29,11 +22,11 @@ const Register = () => {
       />
       <input
         type="password"
-        placeholder="Password"
+        placeholder="Hasło"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit">Register</button>
+      <button type="submit">Zarejestruj się</button>
     </form>
   );
 };

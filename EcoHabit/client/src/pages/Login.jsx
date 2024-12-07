@@ -1,26 +1,19 @@
+// src/pages/Login.jsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../api';
+import './Form.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await api.post('/auth/login', { email, password });
-      localStorage.setItem('token', response.data.token);
-      navigate('/dashboard');
-    } catch (err) {
-      alert('Login failed');
-    }
+    // logika logowania
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Login</h1>
+      <h2>Logowanie</h2>
       <input
         type="email"
         placeholder="Email"
@@ -29,11 +22,11 @@ const Login = () => {
       />
       <input
         type="password"
-        placeholder="Password"
+        placeholder="Hasło"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit">Login</button>
+      <button type="submit">Zaloguj się</button>
     </form>
   );
 };
