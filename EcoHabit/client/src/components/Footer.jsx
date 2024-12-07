@@ -1,4 +1,6 @@
+// src/components/Footer.jsx
 import React from 'react';
+import './Footer.css'; // Zewnętrzny plik CSS
 
 const Footer = () => {
   return (

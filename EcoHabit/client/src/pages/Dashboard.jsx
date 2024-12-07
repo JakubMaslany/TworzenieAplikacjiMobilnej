@@ -1,5 +1,7 @@
+// src/pages/Dashboard.jsx
 import React, { useState, useEffect } from 'react';
 import HabitCard from '../components/HabitCard';
+import './Dashboard.css'; // Zewnętrzny plik CSS dla tej strony
 
 const Dashboard = () => {
   const [habits, setHabits] = useState([]);

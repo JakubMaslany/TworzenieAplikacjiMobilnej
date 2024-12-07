@@ -1,5 +1,7 @@
+// src/components/HabitCard.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './HabitCard.css';  // Zewnętrzny plik CSS
 
 const HabitCard = ({ habit }) => {
   return (

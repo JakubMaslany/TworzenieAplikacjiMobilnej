@@ -1,5 +1,7 @@
+// src/components/Sidebar.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Sidebar.css'; // Zewnętrzny plik CSS dla tego komponentu
 
 const Sidebar = () => {
   return (

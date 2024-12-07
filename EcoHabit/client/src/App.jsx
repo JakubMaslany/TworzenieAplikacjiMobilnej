@@ -1,12 +1,14 @@
+// src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import HabitDetails from './pages/HabitDetails';
-import Footer from './components/Footer';
+import './App.css'; // Globalne style aplikacji
 
 const App = () => {
   return (
