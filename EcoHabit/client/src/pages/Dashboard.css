@@ -1,0 +1,17 @@
+/* src/pages/Dashboard.css */
+
+.dashboard {
+    padding: 20px;
+    margin-left: 220px; /* Wyrównanie z boczną belką */
+  }
+  
+  .habit-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .habit-list .habit-card {
+    margin: 10px;
+    width: calc(33% - 20px); /* Aby karty nie zajmowały całego ekranu */
+  }
+  
