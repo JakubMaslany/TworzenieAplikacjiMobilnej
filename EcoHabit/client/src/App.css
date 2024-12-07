@@ -1,18 +1,36 @@
 /* src/App.css */
-
-/* Ustawienie body jako kontenera flex */
 html, body {
     height: 100%;
     margin: 0;
+    font-family: Arial, sans-serif;
   }
   
   .app-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Zapewnia, że strona zajmuje co najmniej 100% wysokości ekranu */
+    min-height: 100vh; /* Wypełnia całą wysokość ekranu */
   }
   
   .main-content {
-    flex: 1; /* To sprawia, że główna zawartość wypełnia przestrzeń */
+    display: flex;
+    flex: 1;
+  }
+  
+  .sidebar {
+    width: 250px; /* Wysokość bocznego paska */
+    background-color: #f4f4f4;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto; /* Zapewnia, że stopka będzie zawsze na dole */
   }
   
