@@ -1,30 +1,35 @@
+// routes/userRoutes.js
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const User = require('../models/User');
+const User = require('../models/User'); // Upewnij się, że masz odpowiednią ścieżkę do modelu User
 const router = express.Router();
 
 // Rejestracja użytkownika
-router.post('/', async (req, res) => {
-  const { email, password } = req.body;
+router.post('/register', async (req, res) => {
+  const { username, email, password } = req.body;
+
   try {
-    // Sprawdzanie, czy użytkownik już istnieje
+    // Sprawdź, czy użytkownik już istnieje
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'Użytkownik już istnieje' });
+      return res.status(400).json({ message: "Użytkownik już istnieje" });
     }
 
     // Haszowanie hasła
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Tworzenie nowego użytkownika
-    const user = new User({ email, password: hashedPassword });
-    await user.save();
+    const newUser = new User({
+      username,
+      email,
+      password: hashedPassword,
+    });
 
-    res.status(201).json({ message: 'Użytkownik zarejestrowany pomyślnie' });
+    await newUser.save();
+    res.status(201).json({ message: "Rejestracja zakończona sukcesem" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Błąd serwera, spróbuj ponownie' });
+    res.status(500).json({ message: "Błąd serwera" });
   }
 });
 
