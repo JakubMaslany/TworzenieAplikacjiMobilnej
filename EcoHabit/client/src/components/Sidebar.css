@@ -1,9 +1,17 @@
 .sidebar {
-    position: sticky;
+    position: fixed;
     top: 0;
-    width: 20%; /* Możesz dostosować wartość w zależności od potrzeb */
-    min-width: 250px;
+    left: 0;
+    width: 20%; /* zmienia się na procentową szerokość */
     background-color: #f4f4f4;
+    height: 100vh;
     z-index: 2;
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 100%; /* Pełna szerokość na małych ekranach */
+      height: auto;
+    }
   }
   

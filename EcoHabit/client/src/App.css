@@ -14,21 +14,25 @@ html, body {
   .main-content {
     display: flex;
     flex: 1;
+    padding-top: 60px; /* Zapewnia, że zawartość nie będzie za blisko nagłówka */
   }
   
   .sidebar {
-    position: sticky; /* Zapewnia, że sidebar będzie przyklejony do lewej strony */
+    position: fixed; /* Sidebar jest przyklejony do lewej strony */
     top: 0;
+    left: 0;
     width: 250px;
     background-color: #f4f4f4;
-    z-index: 2; /* Ustawienie wyższego indeksu, aby nie zasłaniało innych elementów */
+    height: 100vh; /* Sidebar zajmuje całą wysokość okna */
+    z-index: 2; /* Sidebar zawsze na wierzchu */
   }
   
   .content {
     flex: 1;
+    margin-left: 250px; /* Upewnia się, że zawartość nie będzie nachodziła na sidebar */
     padding: 20px;
-    position: relative; /* Zapewnia, że treść nie zniknie pod sidebar’em */
-    z-index: 1; /* Ustawienie mniejszego indeksu, aby była za sidebar’em */
+    position: relative; /* Umożliwia wyświetlanie zawartości na odpowiednim poziomie */
+    z-index: 1;
   }
   
   .footer {
